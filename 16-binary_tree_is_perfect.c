@@ -1,45 +1,14 @@
 #include "binary_trees.h"
-
-size_t binary_tree_height(const binary_tree_t *tree);
-
 /**
- * binary_tree_is_perfect - checks if the the left and right branches the same.
- * @tree: the binary tree.
- * Return: int
+ * binary_tree_sibling - return sibling of a node
+ * @node: node of a tree
+ * Return: pointer to sibling node
  */
-
-int binary_tree_is_perfect(const binary_tree_t *tree)
+binary_tree_t *binary_tree_sibling(binary_tree_t *node)
 {
-	if (tree == NULL)
-		return (0);
-
-	size_t left_height = binary_tree_height(tree->left);
-	size_t right_height = binary_tree_height(tree->right);
-
-	if (left_height == right_height)
-	{
-		if (tree->left == NULL && tree->right == NULL)
-			return (1);
-
-		return (binary_tree_is_perfect(tree->left) && binary_tree_is_perfect(tree->right));
-	}
-
-	return (0);
-}
-
-/**
- * binary_tree_height - checks the height of a tree.
- * @tree: the binary tree.
- * Return: size-t
- */
-
-size_t binary_tree_height(const binary_tree_t *tree)
-{
-	if (tree == NULL)
-		return (0);
-
-	size_t left_height = binary_tree_height(tree->left);
-	size_t right_height = binary_tree_height(tree->right);
-
-	return (1 + (left_height > right_height ? left_height : right_height));
+	if (node == NULL || node->parent == NULL)
+		return (NULL);
+	if (node == node->parent->right)
+		return (node->parent->left);
+	return (node->parent->right);
 }
